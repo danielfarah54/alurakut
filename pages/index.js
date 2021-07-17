@@ -12,7 +12,7 @@ function ProfileSidebar(props) {
       <hr />
       
       <p>
-        <a className='boxLink' href={`https://github.com/${props.githubUser}`}>
+        <a className='boxLink' href={`https://github.com/${props.githubUser}`} target='_blank'>
           @{props.githubUser}
         </a>
       </p>

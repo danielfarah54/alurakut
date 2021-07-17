@@ -52,6 +52,7 @@ const Box = styled.div`
     color: #ffffff;
     border-radius: 10000;
     background-color: #6f92bb;
+    border-radius: 10000px;
   }
 `
 

@@ -31,7 +31,8 @@ export default function Home() {
   const [comunidades,setComunidades] = React.useState([{
     id: '19823672937641287352834761',
     title: 'Eu odeio acordar cedo',
-    image: 'https://alurakut.vercel.app/capa-comunidade-01.jpg'
+    image: 'https://alurakut.vercel.app/capa-comunidade-01.jpg',
+    link: 'https://alurakut-indol-six.vercel.app'
   }])
   
   const pessoasFavoritas = [
@@ -45,7 +46,7 @@ export default function Home() {
 
   return (
     <>
-      <AlurakutMenu />
+      <AlurakutMenu githubUser={githubUser}/>
       
       <MainGrid>
         <div className='profileArea' style= {{ gridArea: 'profileArea' }}>
@@ -68,7 +69,8 @@ export default function Home() {
               const comunidade = {
                 id: new Date().toISOString(),
                 title: dadosDoForm.get('title'),
-                image: dadosDoForm.get('image')
+                image: dadosDoForm.get('image'),
+                link: dadosDoForm.get('link')
               }
               // comunidades.push('Alura Stars')
               const comunidadesAtualizadas = [...comunidades, comunidade]
@@ -90,6 +92,14 @@ export default function Home() {
                   type='text'
                 />
               </div>
+              <div>
+                <input
+                  placeholder='Qual o link da sua comunidade?'
+                  name='link'
+                  aria-label='Qual o link da sua comunidade?'
+                  type='text'
+                />
+              </div>
 
               <button>
                 Criar comunidade
@@ -107,7 +117,7 @@ export default function Home() {
               {comunidades.map((itemAtual) => {
                 return (
                   <li key={itemAtual.id}>
-                    <a href={`/users/${itemAtual.title}`}>
+                    <a href={itemAtual.link} target='_blank'>
                       <img src={itemAtual.image} />
                       <span>{itemAtual.title}</span>
                     </a>
@@ -127,7 +137,7 @@ export default function Home() {
               {pessoasFavoritas.map((itemAtual) => {
                 return (
                   <li key={itemAtual}>
-                    <a href={`/users/${itemAtual}`}>
+                    <a href={`https://github.com/${itemAtual}`} target='_blank'>
                       <img src={`https://github.com/${itemAtual}.png`} />
                       <span>{itemAtual}</span>
                     </a>

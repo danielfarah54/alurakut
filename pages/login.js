@@ -42,7 +42,7 @@ export default function LoginScreen() {
               Acesse agora mesmo com seu usuário do <strong>GitHub</strong>!
             </p>
             <input
-              placeholder="Usuário"
+              placeholder="danielfarah54"
               value={githubUser}
               onChange={(evento) => {
                 setGithubUser(evento.target.value)

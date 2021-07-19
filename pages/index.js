@@ -3,6 +3,8 @@ import MainGrid from '../src/components/MainGrid'
 import Box from '../src/components/Box'
 import { ProfileRelationsBoxWrapper } from '../src/components/ProfileRelations'
 import { AlurakutMenu, AlurakutProfileSidebarMenuDefault, OrkutNostalgicIconSet } from '../src/lib/AlurakutCommons'
+import nookies from 'nookies'
+import jwt from 'jsonwebtoken'
 
 function ProfileSidebar(props) {
   return (
@@ -49,9 +51,9 @@ function ProfileRelationsBox(props) {
   )
 }
 
-export default function Home() {
+export default function Home(props) {
   
-  const githubUser = 'danielfarah54'
+  const githubUser = props.githubUser
 
   const [comunidades,setComunidades] = React.useState([])
   
@@ -197,7 +199,7 @@ export default function Home() {
                 />
               </div>
               <div>
-                <inputkey
+                <input
                   placeholder='Qual o link da sua comunidade?'
                   name='link'
                   aria-label='Qual o link da sua comunidade?'
@@ -221,4 +223,31 @@ export default function Home() {
       </MainGrid>
     </>
   )
+}
+
+export async function getServerSideProps(context) {
+  const cookies = nookies.get(context)
+  const token = cookies.USER_TOKEN
+
+  const { isAuthenticated } = await fetch('https://alurakut-daniel.vercel.app/api/auth', {
+    headers: {
+      Authorization: token
+    }
+  })
+  .then((resposta) => resposta.json())
+  if(!isAuthenticated) {
+    return {
+      redirect: {
+        destination: '/login',
+        permanent: false
+      }
+    }
+  }
+
+  const { githubUser } = jwt.decode(token)
+  return {
+    props: {
+      githubUser
+    }
+  }
 }
